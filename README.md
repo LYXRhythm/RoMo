@@ -9,7 +9,7 @@ We propose a two-stage method consisting of Pseudo Label Annotation (PLA) and Ro
 
 ![pipline](./figs/pipline.png)
 
-## Requirements
+## Environment Requirements
 ```bash
 pip install requirements.txt
 ```
