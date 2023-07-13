@@ -5,9 +5,11 @@ Yongxiang Li, Dezhong Peng and Peng Hu, CR23: Robust Discriminative Learning for
 With the emergence of AI-generated content and the rising volume of heterogeneous 2D and 3D data, cross-modal retrieval between them has become increasingly popular. In many practical scenarios, unsupervised methods prevail over the limitations of acquiring labels, bringing more convenience to real-world applications. However, the lack of label information can also make it more challenging to comprehend the inherent structure and deal with the semantic disparities among different modalities. To tackle these challenges, this paper proposes a 2D-3D unsupervised cross-modal retrieval framework that harnesses multimodal data. Specifically, our proposed framework has two stages, namely the Pseudo Labels Annotation stage (PLA) and the Robust Discriminative Learning stage (RDL). PLA employs an innovative self-matching supervision mechanism, which achieves class label annotation for all samples. RDL extracts knowledge from the noise pseudo-labels by introducing the Robust Concentrating Learning Loss (RCLL). Both PLA and RDL utilize the Common Space Consistency Learning Mechanism (CSCLM) to encourage modality-invariant representations by collapsing modality-specific samples into a common space. Finally, we conducted experiments on four 2D-3D multimodal datasets to verify the effectiveness of our method, which outperforms 12 state-of-the-art methods.
 
 ## Framework
+We propose a two-stage method consisting of Pseudo Label Annotation (PLA) and Robust Discriminative Learning (RDL). Specifically, PLA maintains a memory bank that stores all the sample features in each modality and utilizes a classifier to semantically identify the similarity of features between the memory bank and iterative sample. Concurrently, the memory banks are optimized and updated through gradient, driving the memory features to approach the centroid of the class. This aims to ensure that the classifier assigns the same pseudo-label annotation to sample features with the same semantic information. To better mitigate the inevitable noise interference in pseudo-labels, we propose a new Robust Concentrating Learning Loss (RCLL) in RDL. Previous research has indicated that incorrect samples are more difficult to learn during the optimization process and generate excessively high loss values \cite{arpit2017closer,chen2019understanding,han2018co}. To address this issue, RCLL uses a smoothing factor to adjust the output results of the loss, thereby reducing the over-optimization and fitting for incorrect or noisy samples. In addition, to improve the robustness of the model to noisy labels, we introduce a regularizing term in the loss function, which expects the model to reduce its attention to intermediate samples. The range of intermediate samples can be adjusted through parameters. Therefore, if the intermediate samples approach difficult samples, the model will decrease its attention to difficult samples. Our approach mitigates the negative impact of difficult or noisy samples on the performance of model, thereby improving its robustness. Specifically, we found that the RCLL strikes a balance between Mean Absolute Error (MAE) and Focal Loss, enabling the model to achieve both noise robustness and rapid convergence. Moreover, to address the cooperative learning problem, we utilize the Common Space Consistency Learning Mechanism (CSCLM) in both PLA and RDL. This mechanism enforces modality-specific samples from the same instance to collapse into a single point in the common space, thereby producing modality-invariant representations.modality-invariant discrimination.
+
 ![pipline](./figs/pipline.png)
 
-## Environment Requirements
+## Requirements
 ```bash
 pip install requirements.txt
 ```
@@ -29,7 +31,7 @@ Dgcnn in the 3D modaility Pre-trained Model can access in the https://drive.goog
 ```python
 python train_step1.py
 ```
-***After train_step1, you will get the pseudo-labels (mnist3d_PointCloud_train_list_pseudo_labelling.txt, mnist3d_RGBImgs_train_list_pseudo_labelling.txt) in the current directory.***
+After train_step1, you will get the pseudo-labels (mnist3d_PointCloud_train_list_pseudo_labelling.txt, mnist3d_RGBImgs_train_list_pseudo_labelling.txt) in the current directory.
 
 ### RDL Stage:
 ```python
@@ -99,18 +101,18 @@ Epoch: 8 / 20000
 ===> Building Models..
 ===> Start from scratch
 
-Epoch: 4 / 20000
- [================= 500/500 ==================>]  Step: 176ms | Tot: 1m36s | Loss: 3.531 | LR: 0.001     
+Epoch: 16 / 20000
+ [================= 500/500 ==================>]  Step: 176ms | Tot: 42s681ms | Loss: 2.892 | LR: 0.0001     
 Validation(mAP): RGBImg2PointCloud: 0.854629    PointCloud2RGBImg: 0.835917     Avg: 0.845273
 Test(mAP): RGBImg2PointCloud: 0.849378  PointCloud2RGBImg: 0.831153     Avg: 0.840266
 Saving..
 
-Epoch: 5 / 20000
- [================= 500/500 ==================>]  Step: 170ms | Tot: 1m37s | Loss: 3.211 | LR: 0.001         
+Epoch: 17 / 20000
+ [================= 500/500 ==================>]  Step: 170ms | Tot: 42s378ms | Loss: 2.731 | LR: 0.0001         
 Validation(mAP): RGBImg2PointCloud: 0.854415    PointCloud2RGBImg: 0.830215     Avg: 0.842315
 
-Epoch: 6 / 20000
- [================= 500/500 ==================>]  Step: 171ms | Tot: 1m34s | Loss: 2.890 | LR: 0.001        
+Epoch: 18 / 20000
+ [================= 500/500 ==================>]  Step: 171ms | Tot: 42s475ms | Loss: 2.671 | LR: 0.0001        
 Validation(mAP): RGBImg2PointCloud: 0.855244    PointCloud2RGBImg: 0.827297     Avg: 0.841271
 ```
 
