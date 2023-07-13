@@ -51,10 +51,6 @@ def load_dict(model, path):
             state_dict[key] = chp['model_state_dict'][key]
     model.load_state_dict(state_dict)
 
-def set_learning_rate(optimizer, lr):
-    for param_group in optimizer.param_groups:
-        param_group['lr'] = lr
-
 def set_train():
     for v in range(n_view):
         multi_models[v].train()
@@ -221,8 +217,6 @@ def main():
         test_dict = test(epoch + 1)
         if test_dict['avg'] == best_acc:
             multi_model_state_dict = [{key: value.clone() for (key, value) in m.state_dict().items()} for m in multi_models]
-        if epoch >= 7:         
-            set_learning_rate(optimizer, 0.0001)
 
     print('Evaluation on Last Epoch:')
     fea, lab = eval(test_loader, epoch, 'test')
