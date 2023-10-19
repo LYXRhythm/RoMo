@@ -5,7 +5,7 @@ Yongxiang Li, Dezhong Peng and Peng Hu, RoMo: Robust Unsupervised Multimodal Lea
 With the emergence of AI-generated content and the rising volume of heterogeneous 2D and 3D data, cross-modal retrieval between them has become increasingly popular. In many practical scenarios, unsupervised methods prevail over the limitations of acquiring labels, bringing more convenience to real-world applications. However, the lack of label information can also make it more challenging to comprehend the inherent structure and deal with the semantic disparities among different modalities. To tackle these challenges, this paper proposes a 2D-3D unsupervised cross-modal retrieval framework that harnesses multimodal data. Specifically, our proposed framework has two stages, namely the Pseudo Labels Annotation stage (PLA) and the Robust Discriminative Learning stage (RDL). PLA employs an innovative self-matching supervision mechanism, which achieves class label annotation for all samples. RDL extracts knowledge from the noise pseudo-labels by introducing the Robust Concentrating Learning Loss (RCLL). Both PLA and RDL utilize the Common Space Consistency Learning Mechanism (CSCLM) to encourage modality-invariant representations by collapsing modality-specific samples into a common space. Finally, we conducted experiments on four 2D-3D multimodal datasets to verify the effectiveness of our method, which outperforms 12 state-of-the-art methods.
 
 ## Framework
-![pipline](./figs/pipline_fig.png)
+![pipline](./figs/pipline_figure.png)
 
 ## Requirements
 ```bash
