@@ -40,7 +40,7 @@ python train_step2.py
 According the above steps, you can get outputs as follows:
 ### PLA Stage:
 ```
-(2023.7.12)
+(2024.3.11)
 ===> Building Models..
 ===> Start from scratch
 
@@ -95,7 +95,7 @@ Epoch: 8 / 20000
 ```
 ### RDL Stage:
 ```
-(2023.7.12)
+(2024.3.11)
 ===> Building Models..
 ===> Start from scratch
 
