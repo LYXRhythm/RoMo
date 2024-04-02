@@ -76,7 +76,7 @@ def step2_setting():
     parser.add_argument('--k', type=int, default=40, metavar='N', help='Num of nearest neighbors to use')
     # Hyper-parameters
     parser.add_argument('--resume', default=None, type=str, metavar='PATH', help='path to latest checkpoint (default: none)')
-    parser.add_argument('--max_epochs', type=int, default=1)
+    parser.add_argument('--max_epochs', type=int, default=50)
     parser.add_argument('--lr', type=float, default=0.0002, help='learning rate') # 0.00001
     parser.add_argument('--weight_decay', type=float, default=1e-6)
     parser.add_argument('--train_batch_size', type=int, default=50) # 20
