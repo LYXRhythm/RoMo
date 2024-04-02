@@ -291,8 +291,6 @@ def test(epoch):
     print('[PVI]: After Training {} Modal Cluster ACC: {}'.format(args.views[0], cluster_acc_score1))
     print('[PVI]: After Training {} Modal Cluster ACC: {}'.format(args.views[1], cluster_acc_score2))
 
-    print("len(sample_path[v]): ", len(sample_path[0]))
-
     if cluster_acc_score > best_cluster_acc_score: 
         best_cluster_acc_score = cluster_acc_score
         for v in range(len(args.train_file_list_pseudo_labelling)):
