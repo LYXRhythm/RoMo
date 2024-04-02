@@ -21,12 +21,14 @@ If you use raw data [Kaggle-3D MNIST](https://www.kaggle.com/datasets/daavoo/3d-
 Here, we provide a processed version (https://drive.google.com/file/d/1_qk06tW7HAPmnHCdfgoIX__RgJMxRRyY/view?usp=drive_link) to match with our code. Download, unzip and put it in the ./dataset/
 
 ## Pre-Trained Model for Feature Extraction Network
+### 2D Modality Pre-trained Model:
 2D modaility (RGB and GARY) Pre-Trained Model will automatic download.
 
-DGCNN (for POINT CLOUD) in the 3D modaility Pre-trained Model can access in the https://drive.google.com/file/d/1lnvyf2Gh5Dy19yzQ6cx-a9IaX_BChpae/view?usp=drive_link.
+### 3D Modality Pre-trained Model:
+1. DGCNN (for POINT CLOUD) in the 3D modaility Pre-trained Model can access in the https://drive.google.com/file/d/1lnvyf2Gh5Dy19yzQ6cx-a9IaX_BChpae/view?usp=drive_link.
 Download and put it in the ./pretrained/
 
-MeshNet (for MESH) in the 3D modaility Pre-trained Model can access in the https://github.com/iMoonLab/MeshNet.
+2. MeshNet (for MESH) in the 3D modaility Pre-trained Model can access in the https://github.com/iMoonLab/MeshNet.
 
 ## Quickly Training
 ### PLA Stage:
