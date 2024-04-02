@@ -12,9 +12,7 @@ class LinearAverage(nn.Module):
         self.momentum = momentum
         self.register_buffer('params', torch.tensor([T, momentum]))
         self.register_buffer('memory', torch.zeros(outputSize, inputSize))
-        # self.register_buffer('memory_logits', torch.zeros(outputSize, class_num))
         self.register_buffer('targets_memory', torch.zeros(outputSize, ))
-        # self.flag = 0
         self.T = T
         self.memory = self.memory.cuda()
         self.memory_first = True
@@ -38,6 +36,11 @@ class LinearAverage(nn.Module):
         updated_weight = weight_pos.div(w_norm)
         self.memory.index_copy_(0, index, updated_weight)
         self.memory = F.normalize(self.memory)
+        
+        memory_size_bytes = self.memory.element_size() * self.memory.nelement()
+        memory_size_mb = memory_size_bytes / (1024 ** 2)
+        features_size_bytes = features.element_size() * features.nelement()
+        features_size_mb = features_size_bytes / (1024 ** 2)
 
     def set_weight(self, features, index):
         self.memory.index_select(0, index.data.view(-1)).resize_as_(features)

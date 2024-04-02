@@ -93,7 +93,9 @@ def train(epoch):
         rb_loss = sum(rb_losses)
         cross_loss = cross_criterion(torch.cat((outputs[0], outputs[1]), dim=0))
 
-        loss = args.lambda_rb*rb_loss + (1-args.lambda_crossmodal)*cross_loss
+        # loss = args.lambda_rb*rb_loss + (1-args.lambda_crossmodal)*cross_loss
+        loss = 0 + (1-args.lambda_crossmodal)*cross_loss
+
         if epoch >= 0:
             loss.backward()
             optimizer.step()
@@ -219,18 +221,15 @@ def main():
             multi_model_state_dict = [{key: value.clone() for (key, value) in m.state_dict().items()} for m in multi_models]
 
     print('Evaluation on Last Epoch:')
-    fea, lab = eval(test_loader, epoch, 'test')
+    fea, lab, pred_score = eval(test_loader, epoch, 'test')
     test_dict, print_str = multiview_test(fea, lab)
     print(print_str)
 
     print('Evaluation on Best Validation:')
     [multi_models[v].load_state_dict(multi_model_state_dict[v]) for v in range(n_view)]
-    fea, lab = eval(test_loader, epoch, 'test')
+    fea, lab, pred_score = eval(test_loader, epoch, 'test')
     test_dict, print_str = multiview_test(fea, lab)
     print(print_str)
-    
-    save_dict = dict(**{args.views[v]: fea[v] for v in range(n_view)}, **{args.views[v] + '_lab': lab[v] for v in range(n_view)})
-    sio.savemat('features/%s_%g.mat' % (args.data_name, 0), save_dict)
 
 if __name__ == '__main__':
     best_acc = 0  # best test accuracy

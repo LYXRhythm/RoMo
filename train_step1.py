@@ -153,6 +153,7 @@ def train(epoch):
         print("\n\n")
     ## Training
     set_train()
+    
     for batch_idx, (batches, targets, batches_path, index) in enumerate(train_loader):
         batches, targets, index = [batches[v].cuda() for v in range(n_view)], [targets[v].cuda() for v in range(n_view)], index.cuda()
 
@@ -169,10 +170,13 @@ def train(epoch):
         mem_logits = []
         for v in range(n_view):
             mem_logits.append(multi_models[v].self_top_layer(multi_models[v].classifier.memory[index]))
-        
-        ## indomain
-        indomain_losses = [in_criterion(multi_logits[v], (mem_logits[v]/args.indomain_tau).softmax(dim=1).argmax(axis=1)) for v in range(n_view)]
+
+        # indomain
+        indomain_losses = [in_criterion(multi_logits[v],
+                            (torch.pow(mem_logits[v].softmax(dim=1), 0.9)/torch.sum(torch.pow(mem_logits[v].softmax(dim=1), 0.9))).argmax(axis=1)) for v in range(n_view)]
         indomain_loss = sum(indomain_losses)
+        indomain_loss = 0.0
+
         ## crossdomain
         crossdomain_loss = cross_criterion(torch.cat((multi_features[0], multi_features[1]), dim=0))
         all_loss = args.lambda1 * indomain_loss + (1. - args.lambda1) * crossdomain_loss
@@ -182,9 +186,12 @@ def train(epoch):
             optimizer.step()
         train_loss += all_loss.item()
 
+        start_time = time.time()
         for v in range(n_view):
             multi_models[v].classifier.update_weight(multi_features[v], index)
-            
+        end_time = time.time()
+        print("Epoch ", epoch, ": Training Time: ", end_time - start_time)
+
         for v in range(n_view):
             loss_list[v] += indomain_losses[v]
             _, predicted = multi_logits[v].max(1)
@@ -193,6 +200,7 @@ def train(epoch):
         progress_bar(batch_idx, len(train_loader), 'Loss: %.3f | LR: %g' % (train_loss / (batch_idx + 1), optimizer.param_groups[0]['lr']))
         print('Loss: %.3f | LR: %g' % (train_loss / (batch_idx + 1), optimizer.param_groups[0]['lr']), file=print_log)
     
+
     train_dict = {('view_%d_loss' % v): loss_list[v] / len(train_loader) for v in range(n_view)}
     train_dict['sum_loss'] = train_loss / len(train_loader)
     summary_writer.add_scalars('Loss/train', train_dict, epoch)
@@ -283,6 +291,8 @@ def test(epoch):
     print('[PVI]: After Training {} Modal Cluster ACC: {}'.format(args.views[0], cluster_acc_score1))
     print('[PVI]: After Training {} Modal Cluster ACC: {}'.format(args.views[1], cluster_acc_score2))
 
+    print("len(sample_path[v]): ", len(sample_path[0]))
+
     if cluster_acc_score > best_cluster_acc_score: 
         best_cluster_acc_score = cluster_acc_score
         for v in range(len(args.train_file_list_pseudo_labelling)):
@@ -306,9 +316,6 @@ def main():
     fea, lab = eval(test_loader, epoch, 'test')
     test_dict, print_str = multiview_test(fea, lab)
     
-    save_dict = dict(**{args.views[v]: fea[v] for v in range(n_view)}, **{args.views[v] + '_lab': lab[v] for v in range(n_view)})
-    sio.savemat('features/%s_%g.mat' % (args.data_name, 0), save_dict)
-
 if __name__ == '__main__':
     best_acc = 0
     best_cluster_acc = 0
@@ -334,6 +341,7 @@ if __name__ == '__main__':
     train_dataset = cross_modal_dataset(args.data_name, noisy_mode=None, noisy_ratio=0, mode='train', 
                                         modal_list=args.views, image_file_list=train_file_list, image_transform=Image_transforms['train'],
                                         class_num=args.class_num)
+    
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=args.train_batch_size,
@@ -403,3 +411,17 @@ if __name__ == '__main__':
     ## main
     main()
     print_log.close()
+    
+    ## dataset postprocessing    
+    for v in range(len(args.train_file_list_pseudo_labelling)):
+        filename = args.train_file_list_pseudo_labelling[v]
+        backup_filename = filename+".backup"
+
+        import shutil
+        shutil.copyfile(filename, backup_filename)
+
+        with open(filename, 'r') as f:
+            lines = f.readlines()
+
+        with open(filename, 'w') as f:
+            f.writelines(lines[:train_dataset.__len__()])

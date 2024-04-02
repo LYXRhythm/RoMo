@@ -20,10 +20,17 @@ class RCLLLoss(nn.Module):
         self.scale = scale
         
     def forward(self, pred, labels):
+        K = len(set(labels))
+        threshold = 1.0 / K
         pred = F.softmax(pred, dim=1)
         label_one_hot = F.one_hot(labels, self.num_classes).float().to(pred.device)
-        loss = torch.pow((- torch.log(torch.sum(label_one_hot * pred, dim=1))), self.alpha) * (1 - torch.sum(label_one_hot * pred, dim=1))
-        return loss.mean() * self.scale
+        indices_clip = torch.where(pred <= threshold)[0]
+        loss_clip = torch.pow((- torch.log(torch.sum(label_one_hot[indices_clip] * threshold, dim=1))), self.alpha) * (1 - torch.sum(label_one_hot[indices_clip] * threshold, dim=1))
+        
+        indices_normal = torch.where(pred > threshold)[0]
+        loss_normal = torch.pow((- torch.log(torch.sum(label_one_hot[indices_normal] * pred[indices_normal], dim=1))), self.alpha) * (1 - torch.sum(label_one_hot[indices_normal] * pred[indices_normal], dim=1))
+        
+        return (loss_clip.mean()+loss_normal.mean())* self.scale
     
 class CrossModalLoss(nn.Module):
     def __init__(self, tau=0.22, num_classes=40, modal_num=2, feat_dim=512, warmup=True, centers=None):
