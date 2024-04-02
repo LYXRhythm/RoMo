@@ -77,15 +77,15 @@ def step2_setting():
     # Hyper-parameters
     parser.add_argument('--resume', default=None, type=str, metavar='PATH', help='path to latest checkpoint (default: none)')
     parser.add_argument('--max_epochs', type=int, default=50)
-    parser.add_argument('--lr', type=float, default=0.0002, help='learning rate') # 0.00001
+    parser.add_argument('--lr', type=float, default=0.0002, help='learning rate')
     parser.add_argument('--weight_decay', type=float, default=1e-6)
-    parser.add_argument('--train_batch_size', type=int, default=50) # 20
-    parser.add_argument('--eval_batch_size', type=int, default=50)  # 20
+    parser.add_argument('--train_batch_size', type=int, default=50)
+    parser.add_argument('--eval_batch_size', type=int, default=50)
     parser.add_argument('--output_dim', type=int, default=256, help='output dimension') 
     parser.add_argument('--class_num', type=int, default=10)
     parser.add_argument('--lambda_rb', type=float, default=0.7)       
     parser.add_argument('--lambda_crossmodal', type=float, default=0.3)
-    parser.add_argument('--crossmodal_tau', type=float, default=0.2) # 0.05
+    parser.add_argument('--crossmodal_tau', type=float, default=0.2)
     
     args = parser.parse_args()
     return args
