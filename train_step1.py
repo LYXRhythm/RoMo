@@ -75,7 +75,7 @@ def multiview_test(fea, lab):
             print_str = print_str + key + ': %.3f\t' % val_dict[key]
     return val_dict, print_str
 
-def generate_pseudo_labelling(data_loader, multi_model, file_list):
+def generate_pseudo_labelling(data_loader, multi_model):
     gt_labels, pseudo_labels = [], []
     for batch_idx, (batches, targets, batches_path, index) in enumerate(data_loader):
         batches = [batches[v].cuda() for v in range(n_view)]
@@ -88,13 +88,6 @@ def generate_pseudo_labelling(data_loader, multi_model, file_list):
 
         gt_labels.append(targets)
         pseudo_labels.append(multi_logits)
-
-        for v in range(n_view):
-            file_view = open(file_list[v], 'a', encoding='utf-8')
-            for ii in range(len(batches_path[v])):
-                write_temp = batches_path[v][ii]+" "+str(int(targets[v][ii]))+"\n"
-                file_view.write(write_temp)
-            file_view.close()
 
     for item1 in range(len(gt_labels)):
         for item2 in range(len(gt_labels[item1])):
@@ -285,11 +278,13 @@ def test(epoch):
                 continue
             paeudo_label[i] = utils.get_label(fea[j], lab[j], fea[i], lab[i], k=0, metric='cosine')
     
-    gt_labels, pseudo_labels = generate_pseudo_labelling(data_loader=train_loader, multi_model=multi_models, file_list=args.train_file_list_pseudo_labelling)
+    gt_labels, pseudo_labels = generate_pseudo_labelling(data_loader=train_loader, multi_model=multi_models)
     cluster_acc_score1, cluster_acc_score2 = cluster_acc(lab[0], paeudo_label[0]), cluster_acc(lab[1], paeudo_label[1])
     cluster_acc_score = (cluster_acc_score1+cluster_acc_score2)/2.0
     print('[PVI]: After Training {} Modal Cluster ACC: {}'.format(args.views[0], cluster_acc_score1))
     print('[PVI]: After Training {} Modal Cluster ACC: {}'.format(args.views[1], cluster_acc_score2))
+
+    print("len(sample_path[v]): ", len(sample_path[0]))
 
     if cluster_acc_score > best_cluster_acc_score: 
         best_cluster_acc_score = cluster_acc_score
@@ -409,17 +404,3 @@ if __name__ == '__main__':
     ## main
     main()
     print_log.close()
-    
-    ## dataset postprocessing    
-    for v in range(len(args.train_file_list_pseudo_labelling)):
-        filename = args.train_file_list_pseudo_labelling[v]
-        backup_filename = filename+".backup"
-
-        import shutil
-        shutil.copyfile(filename, backup_filename)
-
-        with open(filename, 'r') as f:
-            lines = f.readlines()
-
-        with open(filename, 'w') as f:
-            f.writelines(lines[:train_dataset.__len__()])
