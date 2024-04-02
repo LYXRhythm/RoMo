@@ -41,23 +41,23 @@ python train_step2.py
 ## Thanks
 Thanks for the reference and assistance provided by the following work for this code repository.
 ```
-https://github.com/penghu-cs/MRL
-@inproceedings{hu2021MRL,
-   title={Learning Cross-Modal Retrieval with Noisy Labels},
-   author={Peng Hu, Xi Peng, Hongyuan Zhu, Liangli Zhen, Jie Lin},
-   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-   pages={5403--5413},
-   year={2021}
-}
-```
-```
 https://github.com/penghu-cs/RONO
-@InProceedings{Feng_2023_CVPR,
-    author    = {Feng, Yanglin and Zhu, Hongyuan and Peng, Dezhong and Peng, Xi and Hu, Peng},
-    title     = {RONO: Robust Discriminative Learning With Noisy Labels for 2D-3D Cross-Modal Retrieval},
-    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-    month     = {June},
-    year      = {2023},
-    pages     = {11610-11619}
+@inproceedings{feng2023rono,
+  title={RONO: Robust Discriminative Learning with Noisy Labels for 2D-3D Cross-Modal Retrieval},
+  author={Feng, Yanglin and Zhu, Hongyuan and Peng, Dezhong and Peng, Xi and Hu, Peng},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={11610--11619},
+  year={2023}
 }
 ```
+```
+https://github.com/penghu-cs/MRL
+@inproceedings{hu2021learning,
+  title={Learning cross-modal retrieval with noisy labels},
+  author={Hu, Peng and Peng, Xi and Zhu, Hongyuan and Zhen, Liangli and Lin, Jie},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={5403--5413},
+  year={2021}
+}
+```
+
