@@ -29,7 +29,9 @@ Dgcnn in the 3D modaility Pre-trained Model can access in the https://drive.goog
 ```python
 python train_step1.py
 ```
-After train_step1, you will get the pseudo-labels (***mnist3d_PointCloud_train_list_pseudo_labelling.txt***, ***mnist3d_RGBImgs_train_list_pseudo_labelling.txt***) in the current directory. FOR YOUR CONVENIENCE, WE PROVIDED AN EXAMPLE PSEUDO LABEL FILE FOR YOUR DIRECTLY RUNNING STEP2.
+After train_step1, you will get the pseudo-labels (***mnist3d_PointCloud_train_list_pseudo_labelling.txt***, ***mnist3d_RGBImgs_train_list_pseudo_labelling.txt***) in the current directory. 
+
+For your convenience, we have provided an example pseudo label file (in root directory***mnist3d_PointCloud_train_list_pseudo_labelling.txt***, ***mnist3d_RGBImgs_train_list_pseudo_labelling.txt***) for you to run ***train_step2.py*** directly.
 
 ### RDL Stage:
 ```python
