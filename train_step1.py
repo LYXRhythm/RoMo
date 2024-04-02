@@ -309,11 +309,11 @@ def main():
         test_dict = test(epoch + 1)
         multi_model_state_dict = [{key: value.clone() for (key, value) in m.state_dict().items()} for m in multi_models]
 
-    fea, lab = eval(test_loader, epoch, 'test')
+    fea, lab, pred_score = eval(test_loader, epoch, 'test')
     test_dict, print_str = multiview_test(fea, lab)
 
     [multi_models[v].load_state_dict(multi_model_state_dict[v]) for v in range(n_view)]
-    fea, lab = eval(test_loader, epoch, 'test')
+    fea, lab, pred_score = eval(test_loader, epoch, 'test')
     test_dict, print_str = multiview_test(fea, lab)
     
 if __name__ == '__main__':
