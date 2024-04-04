@@ -85,7 +85,7 @@ def step2_setting():
     parser.add_argument('--class_num', type=int, default=10)
     parser.add_argument('--lambda_rb', type=float, default=0.7)       
     parser.add_argument('--lambda_crossmodal', type=float, default=0.3)
-    parser.add_argument('--crossmodal_tau', type=float, default=0.2)
+    parser.add_argument('--crossmodal_tau', type=float, default=0.15)
     
     args = parser.parse_args()
     return args

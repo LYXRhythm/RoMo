@@ -168,7 +168,6 @@ def train(epoch):
         indomain_losses = [in_criterion(multi_logits[v],
                             (torch.pow(mem_logits[v].softmax(dim=1), 0.9)/torch.sum(torch.pow(mem_logits[v].softmax(dim=1), 0.9))).argmax(axis=1)) for v in range(n_view)]
         indomain_loss = sum(indomain_losses)
-        indomain_loss = 0.0
 
         ## crossdomain
         crossdomain_loss = cross_criterion(torch.cat((multi_features[0], multi_features[1]), dim=0))
