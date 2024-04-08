@@ -93,8 +93,7 @@ def train(epoch):
         rb_loss = sum(rb_losses)
         cross_loss = cross_criterion(torch.cat((outputs[0], outputs[1]), dim=0))
 
-        # loss = args.lambda_rb*rb_loss + (1-args.lambda_crossmodal)*cross_loss
-        loss = 0 + (1-args.lambda_crossmodal)*cross_loss
+        loss = args.lambda_rb*rb_loss + (1-args.lambda_crossmodal)*cross_loss
 
         if epoch >= 0:
             loss.backward()
