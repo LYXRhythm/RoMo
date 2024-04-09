@@ -15,11 +15,9 @@ pip install requirements.txt
 ```
 
 ## Dataset
-3D MNIST dataset data is currently available for your training and testing. 
+[Kaggle-3D MNIST](https://www.kaggle.com/datasets/daavoo/3d-mnist) data is currently available for your training and testing. 
 
-If you use raw data [Kaggle-3D MNIST](https://www.kaggle.com/datasets/daavoo/3d-mnist) , suitable data augmentation can bring the performance of the method to a higher level. 
-
-Here, we provide a processed version (https://drive.google.com/file/d/1_qk06tW7HAPmnHCdfgoIX__RgJMxRRyY/view?usp=drive_link) to match with our code. Download, unzip and put it in the ./dataset/
+Here, we provide a processed version of 3D MNIST (https://drive.google.com/file/d/1_qk06tW7HAPmnHCdfgoIX__RgJMxRRyY/view?usp=drive_link) to match with our code. Download, unzip and put it in the ./dataset/
 
 ## Pre-Trained Model for Feature Extraction Network
 ### 2D Modality Pre-trained Model:
