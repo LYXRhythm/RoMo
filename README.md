@@ -54,10 +54,10 @@ MRL:  https://github.com/penghu-cs/MRL
 If you find this work useful in your research, please consider citing:
 
 @article{li2024romo,
-  title={RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels},
-  author={Li, Yongxiang and Qin Yang and Sun, Yuan and Peng, Dezhong and Peng, Xi and Hu, Peng},
-  journal={IEEE Transactions on Image Processing},
-  year={2024},
-  publisher={IEEE}
+  title={RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels}, \\
+  author={Li, Yongxiang and Qin Yang and Sun, Yuan and Peng, Dezhong and Peng, Xi and Hu, Peng}, \\
+  journal={IEEE Transactions on Image Processing}, \\
+  year={2024}, \\
+  publisher={IEEE} \\
 }
 
