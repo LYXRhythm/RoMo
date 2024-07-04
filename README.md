@@ -45,11 +45,14 @@ python train_step2.py
 
 ## Thanks
 Thanks for the reference and assistance provided by the following work for this code repository.
+
 RONO: https://github.com/penghu-cs/RONO
+
 MRL:  https://github.com/penghu-cs/MRL
 
 ## Citation
 If you find this work useful in your research, please consider citing:
+
 @article{li2024romo,
   title={RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels},
   author={Li, Yongxiang and Qin Yang and Sun, Yuan and Peng, Dezhong and Peng, Xi and Hu, Peng},
