@@ -1,5 +1,5 @@
 # RoMo
-RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels (PyTorch Code)
+RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels (IEEE Transaction on Image Processing, PyTorch Code)
 
 Authors: Yongxiang Li, Yang Qin, Yuan Sun, Dezhong Peng, Xi Peng and Peng Hu
 
@@ -45,24 +45,16 @@ python train_step2.py
 
 ## Thanks
 Thanks for the reference and assistance provided by the following work for this code repository.
-```
-https://github.com/penghu-cs/RONO
-@inproceedings{feng2023rono,
-  title={RONO: Robust Discriminative Learning with Noisy Labels for 2D-3D Cross-Modal Retrieval},
-  author={Feng, Yanglin and Zhu, Hongyuan and Peng, Dezhong and Peng, Xi and Hu, Peng},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  pages={11610--11619},
-  year={2023}
+RONO: https://github.com/penghu-cs/RONO
+MRL:  https://github.com/penghu-cs/MRL
+
+## Citation
+If you find this work useful in your research, please consider citing:
+@article{li2024romo,
+  title={RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels},
+  author={Li, Yongxiang and Qin Yang and Sun, Yuan and Peng, Dezhong and Peng, Xi and Hu, Peng},
+  journal={IEEE Transactions on Image Processing},
+  year={2024},
+  publisher={IEEE}
 }
-```
-```
-https://github.com/penghu-cs/MRL
-@inproceedings{hu2021learning,
-  title={Learning cross-modal retrieval with noisy labels},
-  author={Hu, Peng and Peng, Xi and Zhu, Hongyuan and Zhen, Liangli and Lin, Jie},
-  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
-  pages={5403--5413},
-  year={2021}
-}
-```
 
