@@ -54,11 +54,13 @@ MRL:  https://github.com/penghu-cs/MRL
 If you find this work useful in your research, please consider citing:
 
 ```
-@article{li2024romo,
-  title={RoMo: Robust Unsupervised Multimodal Learning with Noisy Pseudo Labels}, 
-  author={Li, Yongxiang and Qin Yang and Sun, Yuan and Peng, Dezhong and Peng, Xi and Hu, Peng}, 
-  journal={IEEE Transactions on Image Processing}, 
-  year={2024}, 
-  publisher={IEEE} 
+@article{li2025robust,
+  title={Robust duality learning for unsupervised visible-infrared person re-identification},
+  author={Li, Yongxiang and Sun, Yuan and Qin, Yang and Peng, Dezhong and Peng, Xi and Hu, Peng},
+  journal={IEEE Transactions on Information Forensics and Security},
+  volume={20},
+  pages={1937--1948},
+  year={2025},
+  publisher={IEEE}
 }
 ```
